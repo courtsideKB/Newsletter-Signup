@@ -49,20 +49,20 @@
   <body class="text-center">
     
 <main class="form-signin">
-    <form>
+    <form action="/" method="POST">
         <img class="mb-4" src="images/logo.png" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Signup to my Newsletter!</h1>
 
         <div class="form-floating">
-            <input type="text" class="form-control top" id="floatingInput" placeholder="First Name">
+            <input type="text" name="fName" class="form-control top" id="floatingInput" placeholder="First Name">
             <label for="floatingInput">First Name</label>
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control middle" id="floatingInput" placeholder="Last Name">
+            <input type="text" name="lName" class="form-control middle" id="floatingInput" placeholder="Last Name">
             <label for="floatingInput">Last Name</label>
         </div>
         <div class="form-floating">
-            <input type="email" class="form-control bottom" id="floatingPassword" placeholder="Email Address">
+            <input type="email" name="email" class="form-control bottom" id="floatingPassword" placeholder="Email Address">
             <label for="floatingPassword">Email Address</label>
         </div>
 
