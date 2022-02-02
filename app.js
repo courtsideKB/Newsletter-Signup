@@ -52,6 +52,7 @@ app.post("/", (req, res) => {
     };
 
     const run = async () => {
+        try {
         const response = await mailchimp.lists.addListMember(listId, {
             email_address: subscribedUser.email,
             status: "subscribed",
@@ -60,11 +61,19 @@ app.post("/", (req, res) => {
                 LNAME: subscribedUser.lastName,
             }
         });
-        console.log(`Successfully subscribed an audience member. The contacts ID is ${response.id}.`);
+            console.log(response);
+            res.sendFile(__dirname + "/success.html");
+        } catch (err) {
+            console.error(err);
+            res.sendFile(__dirname + "/failure.html");
+        }
     };
 
     run();
+});
 
+app.post("/failure", (req, res) => {
+    res.redirect("/");
 });
 
 app.listen(3000, () => {
