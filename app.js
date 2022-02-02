@@ -1,8 +1,6 @@
 import "dotenv/config";
-import express, { response } from "express";
+import express from "express";
 import bodyParser from "body-parser";
-import https from "https";
-import got from "got";
 import {
     fileURLToPath
 } from 'url';
@@ -13,7 +11,6 @@ import mailchimp from "@mailchimp/mailchimp_marketing";
 
 const API_KEY = process.env.MY_API_KEY;
 const SERVER_PREFIX = process.env.MY_SERVER_PREFIX;
-const USERNAME = process.env.MY_USERNAME;
 
 mailchimp.setConfig({
     apiKey: API_KEY,
@@ -67,7 +64,7 @@ app.post("/", (req, res) => {
     };
 
     run();
-    
+
 });
 
 app.listen(3000, () => {
