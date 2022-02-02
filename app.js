@@ -1,6 +1,7 @@
 import "dotenv/config";
-import express from "express";
+import express, { response } from "express";
 import bodyParser from "body-parser";
+import https from "https";
 import got from "got";
 import {
     fileURLToPath
@@ -11,14 +12,15 @@ import {
 import mailchimp from "@mailchimp/mailchimp_marketing";
 
 const API_KEY = process.env.MY_API_KEY;
-const SERVER_PREFIX = process.env.MY_SERVER_PREFIX
+const SERVER_PREFIX = process.env.MY_SERVER_PREFIX;
+const USERNAME = process.env.MY_USERNAME;
 
 mailchimp.setConfig({
     apiKey: API_KEY,
     server: SERVER_PREFIX,
 });
 
-async function run() {
+const run = async () => {
     const response = await mailchimp.ping.get();
     console.log(response);
 };
@@ -41,11 +43,31 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-    var firstName = req.body.fName;
-    var lastName = req.body.lName;
-    var email = req.body.email;
+    const firstName = req.body.fName;
+    const lastName = req.body.lName;
+    const email = req.body.email;
 
-    console.log(firstName, lastName, email);
+    const listId = process.env.LIST_ID;
+    const subscribedUser = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+    };
+
+    const run = async () => {
+        const response = await mailchimp.lists.addListMember(listId, {
+            email_address: subscribedUser.email,
+            status: "subscribed",
+            merge_fields: {
+                FNAME: subscribedUser.firstName,
+                LNAME: subscribedUser.lastName,
+            }
+        });
+        console.log(`Successfully subscribed an audience member. The contacts ID is ${response.id}.`);
+    };
+
+    run();
+    
 });
 
 app.listen(3000, () => {
