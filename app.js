@@ -17,18 +17,6 @@ mailchimp.setConfig({
     server: SERVER_PREFIX,
 });
 
-/* ---- Debugging ---- */
-
-// Async function is not executing
-
-/* /* const run = async () => {
-    const response = await mailchimp.ping.get();
-    console.log(response);
-};
-
-run(); */
-
-/* ---- 1st Solution ---- */
 const run = async () => {
     try {
         const response = await mailchimp.ping.get();
@@ -39,21 +27,6 @@ const run = async () => {
 };
 
 run();
-
-/* ---- 2nd Solution ---- */
-
-/* axios.get("s1.api.mailchimp.com/3.0/lists/e9c77055bf", () => {    
-    const run = async () => {
-        try {
-            const response = await mailchimp.ping.get();
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    
-    run();
-}); */
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -75,7 +48,7 @@ app.post("/", (req, res) => {
     const lastName = req.body.lName;
     const email = req.body.email;
 
-    const listId = process.env.LIST_ID;
+    const listId = process.env.MY_LIST_ID;
     const subscribedUser = {
         firstName: firstName,
         lastName: lastName,
