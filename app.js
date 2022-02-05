@@ -11,10 +11,12 @@ import mailchimp from "@mailchimp/mailchimp_marketing";
 
 const API_KEY = process.env.MY_API_KEY;
 const SERVER_PREFIX = process.env.MY_SERVER_PREFIX;
+const URL = process.env.MY_URL;
 
 mailchimp.setConfig({
     apiKey: API_KEY,
     server: SERVER_PREFIX,
+    url: URL,
 });
 
 /* ---- Debugging ---- */
