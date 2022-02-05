@@ -11,19 +11,17 @@ import mailchimp from "@mailchimp/mailchimp_marketing";
 
 const API_KEY = process.env.MY_API_KEY;
 const SERVER_PREFIX = process.env.MY_SERVER_PREFIX;
-const URL = process.env.MY_URL;
 
 mailchimp.setConfig({
     apiKey: API_KEY,
     server: SERVER_PREFIX,
-    url: URL,
 });
 
 /* ---- Debugging ---- */
 
 // Async function is not executing
 
-/* const run = async () => {
+/* /* const run = async () => {
     const response = await mailchimp.ping.get();
     console.log(response);
 };
@@ -31,7 +29,6 @@ mailchimp.setConfig({
 run(); */
 
 /* ---- 1st Solution ---- */
-
 const run = async () => {
     try {
         const response = await mailchimp.ping.get();
@@ -42,6 +39,21 @@ const run = async () => {
 };
 
 run();
+
+/* ---- 2nd Solution ---- */
+
+/* axios.get("s1.api.mailchimp.com/3.0/lists/e9c77055bf", () => {    
+    const run = async () => {
+        try {
+            const response = await mailchimp.ping.get();
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    
+    run();
+}); */
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -95,6 +107,6 @@ app.post("/failure", (req, res) => {
     res.redirect("/");
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
