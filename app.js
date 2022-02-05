@@ -17,9 +17,26 @@ mailchimp.setConfig({
     server: SERVER_PREFIX,
 });
 
-const run = async () => {
+/* ---- Debugging ---- */
+
+// Async function is not executing
+
+/* const run = async () => {
     const response = await mailchimp.ping.get();
     console.log(response);
+};
+
+run(); */
+
+/* ---- 1st Solution ---- */
+
+const run = async () => {
+    try {
+        const response = await mailchimp.ping.get();
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 run();
@@ -53,14 +70,14 @@ app.post("/", (req, res) => {
 
     const run = async () => {
         try {
-        const response = await mailchimp.lists.addListMember(listId, {
-            email_address: subscribedUser.email,
-            status: "subscribed",
-            merge_fields: {
-                FNAME: subscribedUser.firstName,
-                LNAME: subscribedUser.lastName,
-            }
-        });
+            const response = await mailchimp.lists.addListMember(listId, {
+                email_address: subscribedUser.email,
+                status: "subscribed",
+                merge_fields: {
+                    FNAME: subscribedUser.firstName,
+                    LNAME: subscribedUser.lastName,
+                }
+            });
             console.log(response);
             res.sendFile(__dirname + "/success.html");
         } catch (err) {
